@@ -106,18 +106,40 @@ public class CustomerEnquiryServiceImpl implements CustomerEnquiryService {
 		return convertEntityIntoVO(customerSavingList);
 	}
 	
-	// DRY
-	@Override
-	@TimeLogger
-	public List<CustomerSavingVO> findPendingEnquiry() {
-		List<CustomerSaving> customerSavingList = customerAccountEnquiryRepository.findPendingEnquiries(AccountStatusEnum.PENDING.name());
-		return convertEntityIntoVO(customerSavingList);
-	}
+	// DRY////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
 	
 	@Override
 	@TimeLogger
+	public List<CustomerSavingVO> findPendingEnquiry() {
+		List<CustomerSavingVO> customerSavingListAsc = new ArrayList<>();
+		List<CustomerSaving> customerSavingList = customerAccountEnquiryRepository.findPendingEnquiriesOrderByNameAsc(AccountStatusEnum.PENDING.name());
+		
+		if (customerSavingList.size() > 0) {
+			for (CustomerSaving customer : customerSavingList) {
+				CustomerSavingVO customerVo = new CustomerSavingVO();
+				BeanUtils.copyProperties(customer, customerVo);
+				customerSavingListAsc.add(customerVo);
+				
+			 
+				 
+			}
+
+		}		
+		
+		
+		
+		return customerSavingListAsc;
+	}
+	
+	
+	
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	@Override
+	@TimeLogger
 	public List<CustomerSavingVO> findRegisteredEnquiry() {
-		List<CustomerSaving> customerSavingList = customerAccountEnquiryRepository.findPendingEnquiries(AccountStatusEnum.REGISTERED.name());
+		List<CustomerSaving> customerSavingList = customerAccountEnquiryRepository.findPendingEnquiriesOrderByNameAsc(AccountStatusEnum.REGISTERED.name());
 		return convertEntityIntoVO(customerSavingList);
 	}
 

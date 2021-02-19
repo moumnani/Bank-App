@@ -161,9 +161,10 @@ public class CustomerServiceImpl implements CustomerService {
 			AccountStatus accountStatus = accountStatusRepository.findByCode(AccountStatusEnum.REGISTERED.getCode())
 					.get();
 			customerSaving.setStatus(accountStatus);
+			//Do you know database!!!
+			this.createBankAccount(customerSaving.getCsaid(),pcustomer.getEmail());
 		}
-		//Do you know database!!!
-		this.createBankAccount(dcustomer.getId(),pcustomer.getEmail());
+		
 		
 		return customerVO;
 	}

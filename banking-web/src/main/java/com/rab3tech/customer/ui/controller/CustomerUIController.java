@@ -40,6 +40,7 @@ import com.rab3tech.customer.service.impl.CustomerEnquiryService;
 import com.rab3tech.customer.service.impl.SecurityQuestionService;
 import com.rab3tech.email.service.EmailService;
 import com.rab3tech.vo.ChangePasswordVO;
+import com.rab3tech.vo.CustomerAccountInfoVO;
 import com.rab3tech.vo.CustomerSavingVO;
 import com.rab3tech.vo.CustomerSecurityQueAnsVO;
 import com.rab3tech.vo.CustomerVO;
@@ -288,6 +289,18 @@ public class CustomerUIController {
 		FundTransferVO fundTransferVO=new FundTransferVO();
 		model.addAttribute("fundTransferVO",fundTransferVO);
 		return "customer/fundTransfer";
+	}
+	
+	
+	@GetMapping("/customer/accountSummary")
+	public String accountSummary(Model model, HttpSession session) {
+		
+		LoginVO loginVO2=(LoginVO)session.getAttribute("userSessionVO");
+		String currentLoggedInUserName=loginVO2.getUsername();
+		CustomerAccountInfoVO customerAccountInfoVO=customerService.findCustomerAccountInfo(currentLoggedInUserName);
+		model.addAttribute("customerAccount", customerAccountInfoVO);
+		 
+		return "customer/accountSummary";
 	}
 	
 	

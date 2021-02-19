@@ -72,7 +72,7 @@ public class CustomerEnquiryServiceImplTest {
 		customerSavings.add(customerSaving1);
 		customerSavings.add(customerSaving2);
 
-		when(customerAccountEnquiryRepository.findPendingEnquiries(AccountStatusEnum.PENDING.name()))
+		when(customerAccountEnquiryRepository.findPendingEnquiriesOrderByNameAsc(AccountStatusEnum.PENDING.name()))
 				.thenReturn(customerSavings);
 
 		List<CustomerSavingVO> customerSavingVOs = customerEnquiryServiceImpl.findPendingEnquiry();
@@ -83,19 +83,19 @@ public class CustomerEnquiryServiceImplTest {
 		assertEquals(customerSavingVOs.get(1).getName(), "moshi");
 		assertEquals(customerSavingVOs.get(1).getEmail(), "moshi@gmail.com");
 
-		verify(customerAccountEnquiryRepository, times(1)).findPendingEnquiries(AccountStatusEnum.PENDING.name());
+		verify(customerAccountEnquiryRepository, times(1)).findPendingEnquiriesOrderByNameAsc(AccountStatusEnum.PENDING.name());
 		verifyNoMoreInteractions(customerAccountEnquiryRepository);
 	}
 
 	@Test
 	public void testFindPendingEnquiryWhenNoResult() {
 		List<CustomerSaving> customerSavings = new ArrayList<>();
-		when(customerAccountEnquiryRepository.findPendingEnquiries(AccountStatusEnum.PENDING.name()))
+		when(customerAccountEnquiryRepository.findPendingEnquiriesOrderByNameAsc(AccountStatusEnum.PENDING.name()))
 				.thenReturn(customerSavings);
 		List<CustomerSavingVO> customerSavingVOs = customerEnquiryServiceImpl.findPendingEnquiry();
 		assertNotNull(customerSavingVOs);
 		assertEquals(customerSavingVOs.size(), 0);
-		verify(customerAccountEnquiryRepository, times(1)).findPendingEnquiries(AccountStatusEnum.PENDING.name());
+		verify(customerAccountEnquiryRepository, times(1)).findPendingEnquiriesOrderByNameAsc(AccountStatusEnum.PENDING.name());
 		verifyNoMoreInteractions(customerAccountEnquiryRepository);
 	}
 

@@ -23,7 +23,7 @@ public interface CustomerAccountEnquiryRepository extends JpaRepository<Customer
 	Optional<CustomerSaving> findByUcrid(String ucrid);
 	
 	@Query("SELECT tt FROM CustomerSaving tt where tt.status.name = :name") 
-	List<CustomerSaving> findPendingEnquiries(@Param("name") String name);
+	List<CustomerSaving> findPendingEnquiriesOrderByNameAsc(@Param("name") String name);
 	
 
 	Optional<CustomerSaving> findByAppref(String appref);

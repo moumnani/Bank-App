@@ -87,6 +87,8 @@ public class EmployeeUIController {
 		return "employee/customerAccountsApproved";	//login.html
 	}
 	
+///////////////////////////////////////////////////////////////////////////////////
+	
 	
 	@GetMapping(value= {"/customer/enquiries"})
     @PreAuthorize("hasAuthority('EMPLOYEE')")
@@ -97,6 +99,8 @@ public class EmployeeUIController {
 		return "employee/customerEnquiryList";	//login.html
 	}
 	
+	
+/////////////////////////////////////////////////////////////////////////////////////	
 	@PostMapping("/customers/enquiry/approve")
 	public String customerEnquiryApprove(@RequestParam int csaid,HttpServletRequest request) {
 		CustomerSavingVO customerSavingVO=customerEnquiryService.changeEnquiryStatus(csaid, "APPROVED");
