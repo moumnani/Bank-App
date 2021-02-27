@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Email from customer</title>
+</head>
+<body>
+	<p th:text="${'Hello ' + name}"></p>
+
+   <p th:text="${body}"></p>
+    <p>
+        <img th:src="|cid:cb|" />
+    </p>
+      Regards, <br />
+      <em th:text="${sign}"></em>
+      <p th:text="${location}"></p>
+      <p th:text="${email}"></p>
+      
+</body>
+</html>
